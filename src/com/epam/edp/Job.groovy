@@ -66,6 +66,9 @@ class Job {
     def triggerJobParameters = []
     def codebasePath = ""
 
+    // my addition
+    // def normalizedBranch
+
     Job(type, platform, script) {
         this.type = type
         this.script = script
@@ -135,6 +138,8 @@ class Job {
         this.ciProject = getParameterValue("CI_NAMESPACE")
         this.deployTimeout = getParameterValue("DEPLOY_TIMEOUT", "300s")
         this.manualApproveStageTimeout = getParameterValue("MANUAL_APPROVE_TIMEOUT", "10")
+
+        // this.normalizedBranch = "${context.git.branch}".replaceAll("[^\\(?!.)\\p{L}\\p{Nd}]+", "-").toLowerCase()
 
         stageContent.applications.each() { item ->
             codebaseBranchList["${item.name}"] = ["inputIs" : item.inputIs,
