@@ -97,7 +97,7 @@ class Job {
         this.ciProject = getParameterValue("CI_NAMESPACE")
         setTriggerJobParameter()
 
-        this.normalizedBranch = "${git.branch}".replaceAll("[^\\(?!.)\\p{L}\\p{Nd}]+", "-").toLowerCase()
+        this.normalizedBranch = "${context.git.branch}".replaceAll("[^\\(?!.)\\p{L}\\p{Nd}]+", "-").toLowerCase()
 
         def stagesConfig = getParameterValue("STAGES")
         if (!stagesConfig?.trim())
