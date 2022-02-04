@@ -75,7 +75,7 @@ class GitInfo {
         this.branch = defineVariable(["GERRIT_BRANCH", "BRANCH", "ghprbActualCommit", "gitlabMergeRequestLastCommit", "COMMIT_ID"])
         this.displayBranch = defineVariable(["GERRIT_BRANCH", "ghprbSourceBranch", "gitlabSourceBranch", "BRANCH"])
 
-        this.normalizedBranch = "${this.branch}".replaceAll("[^\\(?!.)\\p{L}\\p{Nd}]+", "-").toLowerCase()
+        // this.normalizedBranch = "${this.branch}".replaceAll("[^\\(?!.)\\p{L}\\p{Nd}]+", "-").toLowerCase()
 
         switch (job.type) {
             case JobType.CODEREVIEW.value:
