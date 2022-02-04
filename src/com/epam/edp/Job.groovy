@@ -67,7 +67,7 @@ class Job {
     def codebasePath = ""
 
     // my addition
-    def normalizedBranch
+    // def normalizedBranch
 
     Job(type, platform, script) {
         this.type = type
@@ -97,7 +97,7 @@ class Job {
         this.ciProject = getParameterValue("CI_NAMESPACE")
         setTriggerJobParameter()
 
-        this.normalizedBranch = "${context.git.branch}".replaceAll("[^\\(?!.)\\p{L}\\p{Nd}]+", "-").toLowerCase()
+        // this.normalizedBranch = "${context.git.branch}".replaceAll("[^\\(?!.)\\p{L}\\p{Nd}]+", "-").toLowerCase()
 
         def stagesConfig = getParameterValue("STAGES")
         if (!stagesConfig?.trim())
