@@ -40,7 +40,7 @@ interface Platform {
     def getImageStreamTagsWithTime(imageStreamName, crApiGroup)
     def checkObjectExists(objectType, objectName, project)
     def getObjectList(objectType)
-    def copySharedSecrets(sharedSecretsMask, deployProject)
+    // def copySharedSecrets(sharedSecretsMask, deployProject)
     def createRoleBinding(user, role, project)
     def deployCodebase(project, templateName, codebase, imageName, timeout, parametersMap, values)
     def deployCodebaseHelm(project, templateName, codebase, imageName, timeout, parametersMap, values)

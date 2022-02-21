@@ -130,19 +130,19 @@ class Kubernetes implements Platform {
         ).trim().tokenize()
     }
 
-    def copySharedSecrets(sharedSecretsMask, deployProject) {
-        def secretSelector = getObjectList("secret")
+    // def copySharedSecrets(sharedSecretsMask, deployProject) {
+    //     def secretSelector = getObjectList("secret")
 
-        secretSelector.each() { secret ->
-            def newSecretName = secret.replace(sharedSecretsMask, '')
-            if (secret =~ /${sharedSecretsMask}/)
-                if (!checkObjectExists('secrets', newSecretName))
-                    script.sh("kubectl get secret ${secret} -o json | " +
-                            "jq 'del(.metadata.namespace,.metadata.resourceVersion,.metadata.uid) | .metadata.creationTimestamp=null' | " +
-                            "sed -e s/'\"name\": \"${secret}\"'/'\"name\": \"${newSecretName}\"'/ | " +
-                            "kubectl -n ${deployProject} apply -f -")
-        }
-    }
+    //     secretSelector.each() { secret ->
+    //         def newSecretName = secret.replace(sharedSecretsMask, '')
+    //         if (secret =~ /${sharedSecretsMask}/)
+    //             if (!checkObjectExists('secrets', newSecretName))
+    //                 script.sh("kubectl get secret ${secret} -o json | " +
+    //                         "jq 'del(.metadata.namespace,.metadata.resourceVersion,.metadata.uid) | .metadata.creationTimestamp=null' | " +
+    //                         "sed -e s/'\"name\": \"${secret}\"'/'\"name\": \"${newSecretName}\"'/ | " +
+    //                         "kubectl -n ${deployProject} apply -f -")
+    //     }
+    // }
 
     def createRoleBinding(user, role, project) {
         println("[JENKINS][DEBUG] Security model for kubernetes hasn't been defined yet")

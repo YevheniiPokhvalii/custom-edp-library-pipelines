@@ -63,24 +63,24 @@ class Openshift extends Kubernetes {
         }
     }
 
-    def copySharedSecrets(sharedSecretsMask, deployProject) {
-        def secretSelector = getObjectList("secret")
+    // def copySharedSecrets(sharedSecretsMask, deployProject) {
+    //     def secretSelector = getObjectList("secret")
 
-        script.openshift.withCluster() {
-            script.openshift.withProject() {
-                secretSelector.withEach { secret ->
-                    def sharedSecretName = secret.name().split('/')[1]
-                    def secretName = sharedSecretName.replace(sharedSecretsMask, '')
-                    if (sharedSecretName =~ /${sharedSecretsMask}/)
-                        if (!checkObjectExists('secrets', secretName))
-                            script.sh("oc get secret ${sharedSecretName} -o json | " +
-                                    "jq 'del(.metadata.namespace,.metadata.resourceVersion,.metadata.uid) | .metadata.creationTimestamp=null' | " +
-                                    "sed -e s/'\"name\": \"${sharedSecretName}\"'/'\"name\": \"${secretName}\"'/ | " +
-                                    "oc -n ${deployProject} apply -f -")
-                }
-            }
-        }
-    }
+    //     script.openshift.withCluster() {
+    //         script.openshift.withProject() {
+    //             secretSelector.withEach { secret ->
+    //                 def sharedSecretName = secret.name().split('/')[1]
+    //                 def secretName = sharedSecretName.replace(sharedSecretsMask, '')
+    //                 if (sharedSecretName =~ /${sharedSecretsMask}/)
+    //                     if (!checkObjectExists('secrets', secretName))
+    //                         script.sh("oc get secret ${sharedSecretName} -o json | " +
+    //                                 "jq 'del(.metadata.namespace,.metadata.resourceVersion,.metadata.uid) | .metadata.creationTimestamp=null' | " +
+    //                                 "sed -e s/'\"name\": \"${sharedSecretName}\"'/'\"name\": \"${secretName}\"'/ | " +
+    //                                 "oc -n ${deployProject} apply -f -")
+    //             }
+    //         }
+    //     }
+    // }
 
     def createRoleBinding(user, role, project) {
         script.sh("oc adm policy add-role-to-user ${role} ${user} -n ${project}")
